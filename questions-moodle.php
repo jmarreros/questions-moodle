@@ -15,6 +15,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 namespace dcms\questions;
 
 use dcms\questions\includes\Plugin;
+use dcms\questions\includes\Enqueue;
 use dcms\questions\includes\Submenu;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,6 +42,8 @@ final class Loader{
 		include_once ( DCMS_QUESTIONS_PATH . '/helpers/moodle-conection.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/database/db-moodle.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/database/db-wordpress.php');
+		include_once ( DCMS_QUESTIONS_PATH . '/includes/categories.php');
+		include_once ( DCMS_QUESTIONS_PATH . '/includes/enqueue.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/plugin.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/submenu.php');
 	}
@@ -69,6 +72,7 @@ final class Loader{
 		$this->load_domain();
 		$this->add_link_plugin();
 		new Plugin;
+		new Enqueue;
 		new SubMenu;
 	}
 

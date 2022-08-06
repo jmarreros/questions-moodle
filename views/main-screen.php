@@ -1,13 +1,15 @@
 <?php
 
+use dcms\questions\includes\Categories;
+
 // Validations
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! current_user_can( 'manage_options' ) ) return; // only administrator
 
 // Tabs definitions
 $plugin_tabs = Array();
-$plugin_tabs['categories'] = __('Categories Selection', 'questions-moodle');
-$plugin_tabs['questions'] = __('Questions Selection', 'questions-moodle');
+$plugin_tabs['categories'] = __('Categories', 'questions-moodle');
+// $plugin_tabs['questions'] = __('Questions Selection', 'questions-moodle');
 
 $current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'categories';
 
@@ -28,7 +30,7 @@ echo '</h2>';
 switch ($current_tab){
 
     case 'categories':
-        $categories = [];
+        $categories = (new Categories)->get_all_categories();
         include_once('partials/categories.php');
         break;
 
