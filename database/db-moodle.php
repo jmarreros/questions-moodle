@@ -27,4 +27,23 @@ class DBMoodle{
         return $this->moodledb->get_results($sql, ARRAY_A);
     }
 
+    // Get questions by category
+    public function get_questions_and_answers($category){
+        $sql = "SELECT 
+                    q.id, 
+                    q.name, 
+                    q.questiontext, 
+                    q.qtype, 
+                    q.hidden, 
+                    a.id id_answer, 
+                    a.answer, 
+                    a.fraction 
+                FROM mo_question q
+                INNER JOIN mo_question_answers a 
+                ON q.id = a.question
+                WHERE q.category = {$category}";
+
+        return $this->moodledb->get_results($sql, ARRAY_A);
+    }
+
 }

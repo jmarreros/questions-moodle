@@ -4,13 +4,9 @@ namespace dcms\questions\includes;
 
 use dcms\questions\database\DBMoodle;
 
-use function PHPSTORM_META\elementType;
-
 class Categories{
 
-    public function __construct(){
-    }
-
+    // Get all categories group by parents
     public function get_all_categories(){
         $moodle = new DBMoodle();
         $categories = $moodle->get_all_categories();

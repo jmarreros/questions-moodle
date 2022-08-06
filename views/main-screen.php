@@ -1,6 +1,7 @@
 <?php
 
 use dcms\questions\includes\Categories;
+use dcms\questions\includes\Questions;
 
 // Validations
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -35,7 +36,10 @@ switch ($current_tab){
         break;
 
     case 'questions':
-        $questions = [];
+        $category_id =  $_GET['id']??0;
+        if ( $category_id === 0 ) return;
+        
+        $questions = (new Questions)->get_questions_and_answers($category_id);
         include_once('partials/questions.php');
         break;
 }
