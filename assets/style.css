@@ -93,3 +93,29 @@
 .hide {
     display: none;
 }
+
+
+/*Questions*/
+.question-container{
+    border:1px solid #ccc;
+    margin-top:20px;
+    margin-bottom:20px;
+    padding:20px;
+}
+
+.question-container .question-answers{
+    background-color: #e3e3e3;
+    padding:20px;
+}
+
+.question-container .question-answers li:after{
+    content:"❌";
+    margin-left: 6px;
+    display:"inline-block";
+}
+
+
+.question-container .question-answers li.correct:after{
+    content:"✅";
+    font-size:15px;
+  }

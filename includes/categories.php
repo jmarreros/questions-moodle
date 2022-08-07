@@ -24,4 +24,11 @@ class Categories{
         return $group_categories;
     }
 
+
+    // Get specific category
+    public function get_category_by_id($id_category){
+        $moodle = new DBMoodle();
+        return $moodle->get_category_by_id($id_category);
+    }
+
 }

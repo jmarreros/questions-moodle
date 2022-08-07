@@ -10,6 +10,7 @@ if ( ! current_user_can( 'manage_options' ) ) return; // only administrator
 // Tabs definitions
 $plugin_tabs = Array();
 $plugin_tabs['categories'] = __('Categories', 'questions-moodle');
+$plugin_tabs['documentation'] = __('Documentation', 'questions-moodle');
 // $plugin_tabs['questions'] = __('Questions Selection', 'questions-moodle');
 
 $current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'categories';
@@ -38,9 +39,13 @@ switch ($current_tab){
     case 'questions':
         $category_id =  $_GET['id']??0;
         if ( $category_id === 0 ) return;
-        
+
+        $category = (new Categories)->get_category_by_id($category_id);
         $questions = (new Questions)->get_questions_and_answers($category_id);
         include_once('partials/questions.php');
+        break;
+    case 'documentation':
+        include_once('partials/documentation.php');
         break;
 }
 

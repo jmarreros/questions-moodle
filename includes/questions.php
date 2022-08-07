@@ -7,9 +7,9 @@ use dcms\questions\database\DBMoodle;
 class Questions{
 
     // Get all questions and answers by category
-    public function get_questions_and_answers($category){
+    public function get_questions_and_answers($id_category){
         $moodle = new DBMoodle();
-        $questions = $moodle->get_questions_and_answers($category);
+        $questions = $moodle->get_questions_and_answers($id_category);
 
         $i = 0;
         $id_question = '0';
