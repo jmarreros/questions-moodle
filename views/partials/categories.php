@@ -21,6 +21,7 @@
                             echo "<li class='child-category'>";
                             echo "<strong> {$child['id']} </strong> - " ;
                             echo "<a href=' {$url} '> {$child['name']} </a>";
+                            echo "({$child['qty']})";
                             echo "</li>";
                         }
                         echo "</ul>";

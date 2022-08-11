@@ -19,10 +19,14 @@ class DBMoodle{
                     qchild.id, 
                     qchild.name, 
                     qchild.parent, 
-                    qchild.sortorder 
+                    qchild.sortorder,
+                    count(mq.id) qty
                 FROM mo_question_categories qparent 
                 RIGHT JOIN mo_question_categories qchild 
-                ON qparent.id = qchild.parent";
+                ON qparent.id = qchild.parent
+                LEFT JOIN mo_question mq 
+                ON qchild.id = mq.category
+                GROUP BY qchild.id";
 
         return $this->moodledb->get_results($sql, ARRAY_A);
     }

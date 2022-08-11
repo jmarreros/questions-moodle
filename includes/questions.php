@@ -21,14 +21,17 @@ class Questions{
                 // Question
                 $group_questions[$i]['id'] = $question['id'];
                 $group_questions[$i]['name'] = $question['name'];
-                $group_questions[$i]['questiontext'] = $question['questiontext'];
+
+                $patterns = ['/^[0-9]+(\. )?/', '/(<p><\/p>)+/','/(<br>)+/'];
+                $group_questions[$i]['questiontext'] =  preg_replace($patterns, '', $question['questiontext']);
+                
                 // Answers 
                 $j = 0;
                 $answers = [];
                 $answers_filter = array_filter($questions, fn($row) => $row['id'] === $question['id'] );
                 foreach ($answers_filter as $item) {
                     $answers[$j]['id_answer'] = $item['id_answer'];
-                    $answers[$j]['answer'] = $item['answer'];
+                    $answers[$j]['answer'] = wp_strip_all_tags($item['answer']);
                     $answers[$j]['fraction'] = $item['fraction'];
                     $j++;
                 }

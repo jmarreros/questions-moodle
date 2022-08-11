@@ -2,9 +2,6 @@
 
 <?php foreach ($questions as $question): ?>
 <section class="question-container" data-id="<?= $question['id'] ?>">
-    <div class="question-name">
-        <?= $question['name'] ?>
-    </div>
     <div class="question-text">
         <?= $question['questiontext'] ?>
     </div>

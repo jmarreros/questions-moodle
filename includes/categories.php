@@ -16,9 +16,11 @@ class Categories{
 
         $group_categories = [];
         foreach ($parents as $parent) {
-            $children = array_filter($categories, fn($row) => $row['parent'] === $parent['id'] );
-            $parent['children'] = $children;            
-            $group_categories[] = $parent;
+            $children = array_filter($categories, fn($row) => $row['parent'] === $parent['id'] && $row['qty'] > 0);
+            if ( $children ){
+                $parent['children'] = $children;         
+                $group_categories[] = $parent;    
+            }
         }
 
         return $group_categories;
