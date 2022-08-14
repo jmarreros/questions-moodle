@@ -62,7 +62,3 @@ class Questions{
     }
 
 }
-
-
-// $patterns = ['/^[0-9]+(\. )?/', '/(<p><\/p>)+/','/(<br>)+/'];
-// $group_questions[$i]['questiontext'] =  preg_replace($patterns, '', $question['questiontext']);

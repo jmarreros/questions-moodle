@@ -18,6 +18,7 @@ use dcms\questions\includes\Plugin;
 use dcms\questions\includes\Enqueue;
 use dcms\questions\includes\Submenu;
 use dcms\questions\includes\Shortcode;
+use dcms\questions\includes\User;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -37,6 +38,7 @@ final class Loader{
 		define ('DCMS_QUESTIONS_SUBMENU', 'tools.php');
 
 		define ('DCMS_SHORTCODE_QUESTIONS_NAME', 'moodlequestions');
+		define ('DCMS_QUESTION_PAGE', 2);
 	}
 
 	// Load all the files we need
@@ -50,6 +52,7 @@ final class Loader{
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/plugin.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/submenu.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/shortcode.php');
+		include_once ( DCMS_QUESTIONS_PATH . '/includes/user.php');
 	}
 
 	// Load tex domain
@@ -79,6 +82,7 @@ final class Loader{
 		new Enqueue;
 		new SubMenu;
 		new Shortcode;
+		new User;
 	}
 
 }

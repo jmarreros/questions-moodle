@@ -17,11 +17,19 @@ class Shortcode{
     }
 
     // Function show user account in the front-end
-    public function show_shortcode_questions(){
-        $questions = (new Questions)->get_questions_by_categories([1300, 1295], 0, 2, 10);
-        
-        error_log(print_r($questions, true));
+    public function show_shortcode_questions( $atts , $_ ){
+        // Get categories attributes
+        if ( ! isset($atts['category']) ) return "No esta establecido el parámetro de category";
+        $categories = explode(',', $atts['category']);
 
+        // Session control and seed
+        if ( ! isset($_SESSION['custom-seed']) ) $_SESSION['custom-seed'] = rand(1,100);
+        $seed = $_SESSION['custom-seed']; // TODO, usar el seed
+
+        // Pagination
+        $page = $_GET['qpage']??0;
+        $questions = (new Questions)->get_questions_by_categories($categories, ($page*DCMS_QUESTION_PAGE), DCMS_QUESTION_PAGE, 100);
+        
         wp_enqueue_style('questions-style');
         wp_enqueue_script('questions-script');
 
@@ -29,6 +37,9 @@ class Shortcode{
         include_once DCMS_QUESTIONS_PATH.'views/frontend/questions-category.php';
         $html_code = ob_get_contents();
         ob_end_clean();
+
+        // TODO: cuando acabe la encuesta la sesion se debe destruir
+        // session_destroy();
 
         return $html_code;
     }
