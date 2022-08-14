@@ -21,10 +21,7 @@ class Questions{
                 // Question
                 $group_questions[$i]['id'] = $question['id'];
                 $group_questions[$i]['name'] = $question['name'];
-
-                $patterns = ['/^[0-9]+(\. )?/', '/(<p><\/p>)+/','/(<br>)+/'];
-                $group_questions[$i]['questiontext'] =  preg_replace($patterns, '', $question['questiontext']);
-                
+                $group_questions[$i]['questiontext'] =  dcms_clear_html_text($question['questiontext']);
                 // Answers 
                 $j = 0;
                 $answers = [];
@@ -45,4 +42,27 @@ class Questions{
         return $group_questions;
     }
 
+    // Get questions by categories
+    public function get_questions_by_categories($id_categories, $page, $qty_page, $seed){
+        $moodle = new DBMoodle();
+        $questions = $moodle->get_questions_by_categories($id_categories, $page, $qty_page, $seed);
+
+        $i = 0;
+        $questions_answers = [];
+        foreach ($questions as $question) {
+            $questions_answers[$i]['id'] = $question['id'];
+            $questions_answers[$i]['category'] = $question['category'];
+            $questions_answers[$i]['questiontext'] = $question['questiontext'];
+            // Answers by question
+            $questions_answers[$i]['answers'] = $moodle->get_answers_by_question($question['id'], $seed);
+            $i++;
+        }
+
+        return $questions_answers;
+    }
+
 }
+
+
+// $patterns = ['/^[0-9]+(\. )?/', '/(<p><\/p>)+/','/(<br>)+/'];
+// $group_questions[$i]['questiontext'] =  preg_replace($patterns, '', $question['questiontext']);

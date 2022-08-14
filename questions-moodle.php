@@ -17,6 +17,7 @@ namespace dcms\questions;
 use dcms\questions\includes\Plugin;
 use dcms\questions\includes\Enqueue;
 use dcms\questions\includes\Submenu;
+use dcms\questions\includes\Shortcode;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -34,6 +35,8 @@ final class Loader{
 		define ('DCMS_QUESTIONS_URL', plugin_dir_url( __FILE__ ));
 		define ('DCMS_QUESTIONS_BASE_NAME', plugin_basename( __FILE__ ));
 		define ('DCMS_QUESTIONS_SUBMENU', 'tools.php');
+
+		define ('DCMS_SHORTCODE_QUESTIONS_NAME', 'moodlequestions');
 	}
 
 	// Load all the files we need
@@ -41,12 +44,12 @@ final class Loader{
 		include_once ( DCMS_QUESTIONS_PATH . '/helpers/functions.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/helpers/moodle-conection.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/database/db-moodle.php');
-		include_once ( DCMS_QUESTIONS_PATH . '/database/db-wordpress.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/categories.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/questions.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/enqueue.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/plugin.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/submenu.php');
+		include_once ( DCMS_QUESTIONS_PATH . '/includes/shortcode.php');
 	}
 
 	// Load tex domain
@@ -75,6 +78,7 @@ final class Loader{
 		new Plugin;
 		new Enqueue;
 		new SubMenu;
+		new Shortcode;
 	}
 
 }

@@ -59,4 +59,26 @@ class DBMoodle{
         return $this->moodledb->get_results($sql, ARRAY_A);
     }
 
+
+    // Get questions by categories and several parameters
+    public function get_questions_by_categories($id_categories, $page = 0, $qty_page = 10, $rand_seed = 100){
+        $sql = "SELECT id, category, questiontext 
+                FROM mo_question 
+                WHERE category IN (" . implode(',', $id_categories) . ")
+                ORDER BY RAND({$rand_seed}) LIMIT {$page},{$qty_page}";
+
+        return $this->moodledb->get_results($sql, ARRAY_A);
+    }
+    
+    // Get specific answers by question
+    public function get_answers_by_question($id_question, $rand_seed = 100){
+        $sql = "SELECT id, answer, fraction
+                FROM mo_question_answers
+                WHERE question = {$id_question}
+                ORDER BY RAND($rand_seed)";
+
+        return $this->moodledb->get_results($sql, ARRAY_A);   
+    }
+    
+
 }
