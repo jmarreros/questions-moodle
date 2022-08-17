@@ -57,9 +57,7 @@ class Questions{
             $questions_answers[$i]['answers'] = $moodle->get_answers_by_question($question['id'], $seed);
             $i++;
         }
-
-        error_log(print_r($questions_answers, true));
-        
+                
         return $questions_answers;
     }
 

@@ -31,7 +31,7 @@ class Enqueue{
         wp_localize_script('questions-script',
                         'dcms_questions',
                             [ 'ajaxurl'=>admin_url('admin-ajax.php'),
-                              'parent' => wp_create_nonce('ajax-nonce-questions')
+                              'qnonce' => wp_create_nonce('ajax-nonce-questions')
                             ]);
                             
         wp_register_style('questions-style',

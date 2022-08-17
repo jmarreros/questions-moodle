@@ -20,12 +20,14 @@ class Shortcode{
     public function show_shortcode_questions( $atts , $_ ){
         // Get categories attributes
         if ( ! isset($atts['category']) ) return "No esta establecido el parámetro de category";
-        $categories = explode(',', $atts['category']);
+        $id_categories = explode(',', $atts['category']);
 
         // Session control and seed
-        if ( ! isset($_SESSION['custom-seed']) ) $_SESSION['custom-seed'] = rand(1,100);
-        $seed = $_SESSION['custom-seed']; // TODO, usar el seed
-
+        if ( ! isset($_SESSION['custom-seed']) ) {
+            $_SESSION['custom-seed'] = rand(1,100);
+            $_SESSION['categories'] = $id_categories;
+        }
+        
         wp_enqueue_style('questions-style');
         wp_enqueue_script('questions-script');
 
@@ -33,10 +35,11 @@ class Shortcode{
         $page = $_GET['qpage']??0;
         $finish = $_GET['finish']??0;
 
+        $obj_questions = new Questions;
+
         if ( ! $finish ) {
-            $obj_questions = new Questions;
-            $questions = $obj_questions->get_questions_by_categories($categories, ($page*DCMS_QUESTION_PAGE), DCMS_QUESTION_PAGE, 100);
-            $total = $obj_questions->get_total_questions_by_categories($categories);
+            $questions = $obj_questions->get_questions_by_categories($id_categories, ($page*DCMS_QUESTION_PAGE), DCMS_QUESTION_PAGE, $_SESSION['custom-seed']);
+            $total = $obj_questions->get_total_questions_by_categories($id_categories);
             $show_finish = ($page + 1)*DCMS_QUESTION_PAGE >= $total;
     
             ob_start();
@@ -44,10 +47,19 @@ class Shortcode{
             $html_code = ob_get_contents();
             ob_end_clean();    
         } else {
+
+            $seed = $_SESSION['custom-seed']??0;
+            $id_categories = $_SESSION['categories']??[];
+            $total = $obj_questions->get_total_questions_by_categories($id_categories);
+
+            $questions_answers = $obj_questions->get_questions_by_categories($id_categories, 0, $total, $seed);
+            
             ob_start();
             include_once DCMS_QUESTIONS_PATH.'views/frontend/finish-results.php';
             $html_code = ob_get_contents();
             ob_end_clean();
+            
+            // session_destroy();
         }
 
         // TODO: cuando acabe la encuesta la sesion se debe destruir
