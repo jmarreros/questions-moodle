@@ -61,13 +61,21 @@ class DBMoodle{
 
 
     // Get questions by categories and several parameters
-    public function get_questions_by_categories($id_categories, $page = 0, $qty_page = 10, $rand_seed = 100){
+    public function get_questions_by_categories($id_categories, $offset = 0, $per_page = 10, $rand_seed = 100){
         $sql = "SELECT id, category, questiontext 
                 FROM mo_question 
                 WHERE category IN (" . implode(',', $id_categories) . ")
-                ORDER BY RAND({$rand_seed}) LIMIT {$page},{$qty_page}";
+                ORDER BY RAND({$rand_seed}) LIMIT {$offset},{$per_page}";
 
         return $this->moodledb->get_results($sql, ARRAY_A);
+    }
+
+    // Get total  questions by catory
+    public function get_total_questions_by_category($id_categories){
+        $sql = "SELECT count(id) FROM mo_question 
+                WHERE category IN (" . implode(',', $id_categories) . ")";
+
+        return $this->moodledb->get_var($sql);
     }
     
     // Get specific answers by question

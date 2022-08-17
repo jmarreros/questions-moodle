@@ -43,9 +43,9 @@ class Questions{
     }
 
     // Get questions by categories
-    public function get_questions_by_categories($id_categories, $page, $qty_page, $seed){
+    public function get_questions_by_categories($id_categories, $offset, $per_page, $seed){
         $moodle = new DBMoodle();
-        $questions = $moodle->get_questions_by_categories($id_categories, $page, $qty_page, $seed);
+        $questions = $moodle->get_questions_by_categories($id_categories, $offset, $per_page, $seed);
 
         $i = 0;
         $questions_answers = [];
@@ -58,7 +58,15 @@ class Questions{
             $i++;
         }
 
+        error_log(print_r($questions_answers, true));
+        
         return $questions_answers;
+    }
+
+    // Get total question in categories
+    public function get_total_questions_by_categories($id_categories){
+        $moodle = new DBMoodle();
+        return $moodle->get_total_questions_by_category($id_categories);
     }
 
 }
