@@ -17,19 +17,18 @@
 
     $( document ).ready(function() {
         const storage = localStorage.getItem(STORAGE)??'';
-        if ( ! storage ) return ;
 
-        const data = JSON.parse(storage);
-
-        if (data){
-            for(const idQuestion in data){
-                const idAnswer = data[idQuestion];
-                $('#' + idAnswer).prop('checked', true);
-            }
+        if (  storage ) {
+            const data = JSON.parse(storage);
+            if (data){
+                for(const idQuestion in data){
+                    const idAnswer = data[idQuestion];
+                    $('#' + idAnswer).prop('checked', true);
+                }
+            }    
         }
 
         if (is_finish_page()) show_results();
-        
     });
 
     // Validate results with Ajax response
@@ -64,14 +63,14 @@
         $('#total-not-answered').text(totalNotAnswered);
         $('#total-correct').text(correct);
         $('#total-wrong').text(wrong);
-        $('#final-result').text( (correct/totalQuestions)*10 );
+        $('#final-result').text( Math.round( (correct*10*100/totalQuestions) ) / 100 );
     }
 
 
     $('.options-link a').click(function(e){
         e.preventDefault();
         localStorage.setItem(STORAGE, '');
-        window.location.href = $(this).attr('href');
+        window.location.replace( $(this).attr('href'));
     });
 
 })( jQuery );

@@ -5,7 +5,7 @@
 
 <section class="question-resume">
 <ul>
-    <li><span>Total respuestas test:</span><strong id="total-qty">0</strong></li>
+    <li><span>Total preguntas:</span><strong id="total-qty">0</strong></li>
     <li><span>Preguntas contestadas:</span><strong id="total-answered">0</strong></li>
     <li><span>Preguntas sin contestar:</span><strong id="total-not-answered">0</strong></li>
     <li><span>Número de aciertos:</span><strong id="total-correct">0</strong></li>

@@ -26,7 +26,6 @@ class Shortcode{
         // Session control and seed
         if ( ! isset($_SESSION['custom-seed']) ) {
             $_SESSION['custom-seed'] = rand(1,100);
-            $_SESSION['categories'] = $id_categories;
         }
         
         wp_enqueue_style('questions-style');
@@ -50,7 +49,6 @@ class Shortcode{
         } else {
 
             $seed = $_SESSION['custom-seed']??0;
-            $id_categories = $_SESSION['categories']??[];
             $total = $obj_questions->get_total_questions_by_categories($id_categories);
 
             $questions_answers = $obj_questions->get_questions_by_categories($id_categories, 0, $total, $seed);

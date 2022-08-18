@@ -31,7 +31,7 @@ final class Loader{
 
 	// Define all the constants we need
 	public function define_constants(){
-		define ('DCMS_QUESTIONS_VERSION', '1.0');
+		define ('DCMS_QUESTIONS_VERSION', '1.2');
 		define ('DCMS_QUESTIONS_PATH', plugin_dir_path( __FILE__ ));
 		define ('DCMS_QUESTIONS_URL', plugin_dir_url( __FILE__ ));
 		define ('DCMS_QUESTIONS_BASE_NAME', plugin_basename( __FILE__ ));
