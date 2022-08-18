@@ -21,6 +21,7 @@ class Shortcode{
         // Get categories attributes
         if ( ! isset($atts['category']) ) return "No esta establecido el parámetro de category";
         $id_categories = explode(',', $atts['category']);
+        $per_page = abs(intval($atts['perpage']??DCMS_QUESTION_PAGE));
 
         // Session control and seed
         if ( ! isset($_SESSION['custom-seed']) ) {
@@ -38,9 +39,9 @@ class Shortcode{
         $obj_questions = new Questions;
 
         if ( ! $finish ) {
-            $questions = $obj_questions->get_questions_by_categories($id_categories, ($page*DCMS_QUESTION_PAGE), DCMS_QUESTION_PAGE, $_SESSION['custom-seed']);
+            $questions = $obj_questions->get_questions_by_categories($id_categories, ($page*$per_page), $per_page, $_SESSION['custom-seed']);
             $total = $obj_questions->get_total_questions_by_categories($id_categories);
-            $show_finish = ($page + 1)*DCMS_QUESTION_PAGE >= $total;
+            $show_finish = ($page + 1)*$per_page >= $total;
     
             ob_start();
             include_once DCMS_QUESTIONS_PATH.'views/frontend/questions-category.php';

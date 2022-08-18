@@ -11,5 +11,12 @@
     <strong>[<?= DCMS_SHORTCODE_QUESTIONS_NAME ?> category="xxx, yyy"]</strong>    
 </p>
 
+<p>
+    Puedes establecer la cantidad de preguntas por página que se mostrarán usando perpage,
+    la cantidad por defecto es 10 si es que no usas este parámetro.
+    <br>
+    <strong>[<?= DCMS_SHORTCODE_QUESTIONS_NAME ?> category="xxx" perpage="15"]</strong>    
+</p>
+
 
 

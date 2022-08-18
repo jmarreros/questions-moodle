@@ -38,7 +38,7 @@ final class Loader{
 		define ('DCMS_QUESTIONS_SUBMENU', 'tools.php');
 
 		define ('DCMS_SHORTCODE_QUESTIONS_NAME', 'moodlequestions');
-		define ('DCMS_QUESTION_PAGE', 3);
+		define ('DCMS_QUESTION_PAGE', 10);
 	}
 
 	// Load all the files we need
