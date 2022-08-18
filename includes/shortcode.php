@@ -62,9 +62,6 @@ class Shortcode{
             // session_destroy();
         }
 
-        // TODO: cuando acabe la encuesta la sesion se debe destruir
-        // session_destroy();
-
         return $html_code;
     }
     

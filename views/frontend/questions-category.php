@@ -22,13 +22,13 @@
 
     <footer class="pagination-link">
         <?php if ( $page > 0): ?>
-            <a href="<?= get_permalink().'?qpage='. ($page - 1) ?>">Anterior</a>
+            <a href="<?= get_permalink().'?qpage='. ($page - 1) ?>" class="prev-link qlink">Anterior</a>
         <?php endif; ?>
 
         <?php if ( ! $show_finish ): ?>
-            <a href="<?= get_permalink().'?qpage='. ($page + 1) ?>">Siguiente</a>
+            <a href="<?= get_permalink().'?qpage='. ($page + 1) ?>" class="next-link qlink">Siguiente</a>
         <?php else: ?>
-            <a href="<?= get_permalink().'?finish=1' ?>">Ver resultados</a>
+            <a href="<?= get_permalink().'?finish=1' ?>" class="finish-link qlink">Ver resultados</a>
         <?php endif; ?>    
     </footer>
 

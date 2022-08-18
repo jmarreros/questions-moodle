@@ -1,0 +1,81 @@
+.questions-container .questions,
+.questions-container .answers{
+  list-style: none;  
+}
+
+.questions-container .answers{
+  background-color: #f0efef;
+  padding:20px;
+  padding-left: 46px;
+}
+
+.questions-container .answers li{
+  margin-bottom: 12px;
+  position:relative;
+}
+  
+.questions-container .answers li input{
+    position: absolute;
+    top: 3px;
+    left: -32px;
+    width: 18px;
+    height: 18px;
+}
+
+.questions-container .questions .question{
+  margin-bottom: 30px;
+}
+
+.questions-container .questions .question .question-text{
+  margin-bottom: 14px;
+  margin-top: 20px;
+}
+
+.questions-container .pagination-link{
+    display: flex;
+    justify-content: right;
+}
+
+.questions-container .prev-link{
+    margin-right: 20px;
+}
+
+.question-resume{
+    border:2px dashed grey;
+    padding:12px 20px 25px;
+}
+
+.question-resume span,
+.question-resume strong{
+    display: inline-block;
+}
+
+.question-resume span{
+    width: 220px;
+}
+
+.question-resume strong{
+    width: 20px;
+    text-align: right;
+}
+
+.questions-container .answers.correct{
+  background-color:lightgreen;
+}
+  
+.questions-container .answers.wrong{
+  background-color:lightcoral;
+}
+
+
+.questions-container .answers .img-wrong{
+  display: none;
+}
+
+.questions-container .answers.wrong .sel-wrong .img-wrong{
+  display: inline;
+}
+
+.options-link{
+  text-align: right;
+}
