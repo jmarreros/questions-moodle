@@ -7,7 +7,7 @@ use dcms\questions\database\DBMoodle;
 class Categories{
 
     // Get all categories group by parents
-    public function get_all_categories(){
+    public function get_all_categories(): array{
         $moodle = new DBMoodle();
         $categories = $moodle->get_all_categories();
 
@@ -28,7 +28,7 @@ class Categories{
 
 
     // Get specific category
-    public function get_category_by_id($id_category){
+    public function get_category_by_id($id_category):array{
         $moodle = new DBMoodle();
         return $moodle->get_category_by_id($id_category);
     }

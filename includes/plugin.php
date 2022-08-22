@@ -2,8 +2,6 @@
 
 namespace dcms\questions\includes;
 
-use dcms\questions\includes\Database;
-
 class Plugin{
 
     public function __construct(){
@@ -11,12 +9,13 @@ class Plugin{
         register_deactivation_hook( DCMS_QUESTIONS_BASE_NAME, [ $this, 'dcms_deactivation_plugin'] );
     }
 
+
     // Activate plugin - create options and database table
-    public function dcms_activation_plugin(){
-    }
+//    public function dcms_activation_plugin(){
+//    }
 
     // Deactivate plugin
-    public function dcms_deactivation_plugin(){
-    }
+//    public function dcms_deactivation_plugin(){
+//    }
 
 }

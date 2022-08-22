@@ -7,14 +7,13 @@ use dcms\questions\database\DBMoodle;
 class Questions{
 
     // Get all questions and answers by category
-    public function get_questions_and_answers($id_category){
+    public function get_questions_and_answers($id_category): array {
         $moodle = new DBMoodle();
         $questions = $moodle->get_questions_and_answers($id_category);
 
         $i = 0;
         $id_question = '0';
         $group_questions = [];
-        $answers = [];
 
         foreach ($questions as $question) {
             if ( $id_question !==  $question['id'] ){
@@ -43,7 +42,7 @@ class Questions{
     }
 
     // Get questions by categories
-    public function get_questions_by_categories($id_categories, $offset, $per_page, $seed){
+    public function get_questions_by_categories($id_categories, $offset, $per_page, $seed): array{
         $moodle = new DBMoodle();
         $questions = $moodle->get_questions_by_categories($id_categories, $offset, $per_page, $seed);
 
@@ -62,7 +61,7 @@ class Questions{
     }
 
     // Get total question in categories
-    public function get_total_questions_by_categories($id_categories){
+    public function get_total_questions_by_categories($id_categories): int{
         $moodle = new DBMoodle();
         return $moodle->get_total_questions_by_category($id_categories);
     }

@@ -2,8 +2,6 @@
 
 namespace dcms\questions\includes;
 
-use dcms\questions\includes\Questions;
-
 // Class for grouping shortcodes functionality
 class Shortcode{
 
@@ -12,16 +10,16 @@ class Shortcode{
     }
 
     // Function to add shortcodes
-    public function create_shortcodes(){
+    public function create_shortcodes(): void{
         add_shortcode(DCMS_SHORTCODE_QUESTIONS_NAME, [ $this, 'show_shortcode_questions' ]);
     }
 
     // Function show user account in the front-end
-    public function show_shortcode_questions( $atts , $_ ){
+    public function show_shortcode_questions($attrs): string{
         // Get categories attributes
-        if ( ! isset($atts['category']) ) return "No esta establecido el parámetro de category";
-        $id_categories = explode(',', $atts['category']);
-        $per_page = abs(intval($atts['perpage']??DCMS_QUESTION_PAGE));
+        if ( ! isset($attrs['category']) ) return "No esta establecido el parámetro de category";
+        $id_categories = explode(',', $attrs['category']);
+        $per_page = abs(intval($attrs['perpage']??DCMS_QUESTION_PAGE));
 
         // Session control and seed
         if ( ! isset($_SESSION['custom-seed']) ) {
@@ -36,6 +34,7 @@ class Shortcode{
         $finish = $_GET['finish']??0;
 
         $obj_questions = new Questions;
+        $html_code = '';
 
         if ( ! $finish ) {
             $questions = $obj_questions->get_questions_by_categories($id_categories, ($page*$per_page), $per_page, $_SESSION['custom-seed']);
@@ -44,10 +43,7 @@ class Shortcode{
     
             ob_start();
             include_once DCMS_QUESTIONS_PATH.'views/frontend/questions-category.php';
-            $html_code = ob_get_contents();
-            ob_end_clean();    
         } else {
-
             $seed = $_SESSION['custom-seed']??0;
             $total = $obj_questions->get_total_questions_by_categories($id_categories);
 
@@ -55,11 +51,10 @@ class Shortcode{
             
             ob_start();
             include_once DCMS_QUESTIONS_PATH.'views/frontend/finish-results.php';
-            $html_code = ob_get_contents();
-            ob_end_clean();
-            
             // session_destroy();
         }
+        $html_code = ob_get_contents();
+        ob_end_clean();
 
         return $html_code;
     }

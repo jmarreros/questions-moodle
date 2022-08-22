@@ -2,18 +2,20 @@
 
 namespace dcms\questions\database;
 
-use dcms\questions\helpers\MoodleConection;
+use dcms\questions\helpers\MoodleConnection;
+use wpdb;
 
-// Moodel database queries
+// Moodle database queries
 class DBMoodle{
-    private $moodledb;
+    private wpdb $moodledb;
 
     public function __construct(){
-        $this->moodledb = MoodleConection::get_moodle_db();
+        $this->moodledb = MoodleConnection::get_moodle_db();
     }
 
     // Get all categories
-    public function get_all_categories(){
+    public function get_all_categories(): array
+    {
         $sql = "SELECT 
                     ISNULL(qparent.id) isparent, 
                     qchild.id, 
@@ -32,7 +34,8 @@ class DBMoodle{
     }
 
     // Get specific category
-    public function get_category_by_id($id_category){
+    public function get_category_by_id($id_category): array
+    {
         $sql = "SELECT id, name, parent 
                 FROM mo_question_categories 
                 WHERE id = {$id_category}";
@@ -41,7 +44,7 @@ class DBMoodle{
     }
 
     // Get questions by category
-    public function get_questions_and_answers($id_category){
+    public function get_questions_and_answers($id_category):array{
         $sql = "SELECT 
                     q.id, 
                     q.name, 
@@ -61,7 +64,7 @@ class DBMoodle{
 
 
     // Get questions by categories and several parameters
-    public function get_questions_by_categories($id_categories, $offset = 0, $per_page = 10, $rand_seed = 100){
+    public function get_questions_by_categories($id_categories, $offset = 0, $per_page = 10, $rand_seed = 100):array{
         $sql = "SELECT id, category, questiontext 
                 FROM mo_question 
                 WHERE category IN (" . implode(',', $id_categories) . ")
@@ -70,8 +73,8 @@ class DBMoodle{
         return $this->moodledb->get_results($sql, ARRAY_A);
     }
 
-    // Get total  questions by catory
-    public function get_total_questions_by_category($id_categories){
+    // Get total  questions by category
+    public function get_total_questions_by_category($id_categories):int{
         $sql = "SELECT count(id) FROM mo_question 
                 WHERE category IN (" . implode(',', $id_categories) . ")";
 
@@ -79,7 +82,7 @@ class DBMoodle{
     }
     
     // Get specific answers by question
-    public function get_answers_by_question($id_question, $rand_seed = 100){
+    public function get_answers_by_question($id_question, $rand_seed = 100):array{
         $sql = "SELECT id, answer, fraction
                 FROM mo_question_answers
                 WHERE question = {$id_question}
@@ -87,6 +90,5 @@ class DBMoodle{
 
         return $this->moodledb->get_results($sql, ARRAY_A);   
     }
-    
 
 }

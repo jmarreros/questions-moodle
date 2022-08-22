@@ -1,3 +1,8 @@
+<?php
+/* @var int $page */
+/* @var array $questions */
+/* @var bool $show_finish */
+?>
 <section class="questions-container" data-page="<?= $page ?>">
 
     <ul class="questions">

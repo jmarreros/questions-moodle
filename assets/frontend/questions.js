@@ -7,7 +7,7 @@
         const idQuestion = $(this).attr('name').replace(/\D/g, "");
         const idAnswer = $(this).attr('id');
         
-        let data = new Object;
+        let data = {};
         const storage = localStorage.getItem(STORAGE);
         if ( storage && storage !== '' ) data = JSON.parse(storage);
         

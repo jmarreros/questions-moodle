@@ -2,7 +2,7 @@
 
 namespace dcms\questions\includes;
 
-// Enqueu Cass
+// Enqueue Cass
 class Enqueue{
 
     public function __construct(){
@@ -11,7 +11,7 @@ class Enqueue{
     }
     
     // Backend scripts
-    public function register_scripts_backend(){
+    public function register_scripts_backend(): void{
         wp_register_style('questions-style',
                             DCMS_QUESTIONS_URL.'/assets/backend/style.css',
                             [],
@@ -21,7 +21,7 @@ class Enqueue{
     }
 
     // Frontend scripts
-    function register_scripts_front_end(){
+    function register_scripts_front_end(): void{
         wp_register_script('questions-script',
                             DCMS_QUESTIONS_URL.'/assets/frontend/questions.js',
                             ['jquery'],

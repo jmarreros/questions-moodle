@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Loader{
 
 	// Define all the constants we need
-	public function define_constants(){
+	public function define_constants(): void{
 		define ('DCMS_QUESTIONS_VERSION', '1.2');
 		define ('DCMS_QUESTIONS_PATH', plugin_dir_path( __FILE__ ));
 		define ('DCMS_QUESTIONS_URL', plugin_dir_url( __FILE__ ));
@@ -42,9 +42,9 @@ final class Loader{
 	}
 
 	// Load all the files we need
-	public function load_includes(){
+	public function load_includes(): void{
 		include_once ( DCMS_QUESTIONS_PATH . '/helpers/functions.php');
-		include_once ( DCMS_QUESTIONS_PATH . '/helpers/moodle-conection.php');
+		include_once ( DCMS_QUESTIONS_PATH . '/helpers/moodle-connection.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/database/db-moodle.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/categories.php');
 		include_once ( DCMS_QUESTIONS_PATH . '/includes/questions.php');
@@ -56,7 +56,7 @@ final class Loader{
 	}
 
 	// Load tex domain
-	public function load_domain(){
+	public function load_domain(): void{
 		add_action('plugins_loaded', function(){
 			$path_languages = dirname(DCMS_QUESTIONS_BASE_NAME).'/languages/';
 			load_plugin_textdomain('questions-moodle', false, $path_languages );
@@ -64,7 +64,7 @@ final class Loader{
 	}
 
 	// Add link to plugin list
-	public function add_link_plugin(){
+	public function add_link_plugin(): void {
 		add_action( 'plugin_action_links_' . plugin_basename( __FILE__ ), function( $links ){
 			return array_merge( array(
 				'<a href="' . esc_url( admin_url( DCMS_QUESTIONS_SUBMENU . '?page=questions-moodle' ) ) . '">' . __( 'Settings', 'questions-moodle' ) . '</a>'
@@ -73,7 +73,7 @@ final class Loader{
 	}
 
 	// Initialize all
-	public function init(){
+	public function init(): void{
 		$this->define_constants();
 		$this->load_includes();
 		$this->load_domain();

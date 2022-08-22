@@ -1,13 +1,14 @@
 <?php
 // Database conection
 
-
 namespace dcms\questions\helpers;
 
-class MoodleConection{
+use wpdb;
 
-    public static function get_moodle_db(){
-        // Para pruebas en máquina local
+class MoodleConnection{
+
+    public static function get_moodle_db(): wpdb{
+        // localhost development condition
         if ( $_SERVER['SERVER_NAME'] === 'questions.local'){
             $database_name = 'rfwdmqme_mo1';
             $database_user = 'root';
@@ -20,7 +21,7 @@ class MoodleConection{
             $database_server = 'localhost';   
         }
         
-        return new \wpdb($database_user, $database_pass, $database_name, $database_server);
+        return new wpdb($database_user, $database_pass, $database_name, $database_server);
     }
     
 }

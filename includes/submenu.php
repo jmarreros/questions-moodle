@@ -12,7 +12,7 @@ class Submenu{
     }
 
     // Register submenu
-    public function register_submenu(){
+    public function register_submenu(): void{
         add_submenu_page(
             DCMS_QUESTIONS_SUBMENU,
             __('Moodle Questions','questions-moodle'),
@@ -24,7 +24,7 @@ class Submenu{
     }
 
     // Callback, show view
-    public function submenu_page_callback(){
+    public function submenu_page_callback(): void{
         include_once (DCMS_QUESTIONS_PATH. '/views/backend/main-screen.php');
     }
 }

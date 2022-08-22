@@ -11,7 +11,7 @@ class User{
         add_action( 'init', [$this, 'create_session'] );
     }
 
-    public function create_session(){
+    public function create_session(): void{
         if ( ! session_id() ) {
             session_start();
         }

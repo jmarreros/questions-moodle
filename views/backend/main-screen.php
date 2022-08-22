@@ -13,13 +13,13 @@ $plugin_tabs['categories'] = __('Categories', 'questions-moodle');
 $plugin_tabs['documentation'] = __('Documentation', 'questions-moodle');
 // $plugin_tabs['questions'] = __('Questions Selection', 'questions-moodle');
 
-$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'categories';
+$current_tab = $_GET['tab'] ?? 'categories';
 
-// Interfaz header
+// Interface header
 echo "<div class='wrap'>"; //start wrap
 echo "<h1>" . __('Moodle Questions', 'questions-moodle') . "</h1>";
 
-// Intefaz tabs
+// Interface tabs
 echo '<h2 class="nav-tab-wrapper">';
 foreach ( $plugin_tabs as $tab_key => $tab_caption ) {
     $active = $current_tab == $tab_key ? 'nav-tab-active' : '';

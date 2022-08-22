@@ -1,5 +1,6 @@
 <?php
-// $questions_answers
+/* @var int $page */
+/* @var array $questions_answers */
 ?>
 <h2>Resultados Finales</h2>
 
