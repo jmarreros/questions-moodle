@@ -18,8 +18,11 @@ class Shortcode{
     public function show_shortcode_questions($attrs): string{
         // Get categories attributes
         if ( ! isset($attrs['category']) ) return "No esta establecido el parámetro de category";
+
         $id_categories = explode(',', $attrs['category']);
-        $per_page = abs(intval($attrs['perpage']??DCMS_QUESTION_PAGE));
+        $per_page = abs(intval($attrs['perpage']??DCMS_QUESTIONS_PAGE));
+        $rand_answers = abs(intval($attrs['rand_answers']??1));
+        $total = abs(intval($attrs['limit']??0));
 
         // Session control and seed
         if ( ! isset($_SESSION['custom-seed']) ) {
@@ -32,23 +35,27 @@ class Shortcode{
         // Pagination
         $page = $_GET['qpage']??0;
         $finish = $_GET['finish']??0;
+        $seed = $_SESSION['custom-seed'];
 
-        $obj_questions = new Questions;
         $html_code = '';
+        $obj_questions = new Questions;
+
+        $total_questions = $obj_questions->get_total_questions_by_categories($id_categories);
+
+        // Setting total questions
+        if ( $total === 0 || $total > $total_questions){
+            $total = $total_questions;
+        }
 
         if ( ! $finish ) {
-            $questions = $obj_questions->get_questions_by_categories($id_categories, ($page*$per_page), $per_page, $_SESSION['custom-seed']);
-            $total = $obj_questions->get_total_questions_by_categories($id_categories);
+            $questions = $obj_questions->get_questions_by_categories($id_categories, ($page*$per_page), $per_page, $seed, $rand_answers);
             $show_finish = ($page + 1)*$per_page >= $total;
     
             ob_start();
             include_once DCMS_QUESTIONS_PATH.'views/frontend/questions-category.php';
         } else {
-            $seed = $_SESSION['custom-seed']??0;
-            $total = $obj_questions->get_total_questions_by_categories($id_categories);
+            $questions_answers = $obj_questions->get_questions_by_categories($id_categories, 0, $total, $seed, $rand_answers);
 
-            $questions_answers = $obj_questions->get_questions_by_categories($id_categories, 0, $total, $seed);
-            
             ob_start();
             include_once DCMS_QUESTIONS_PATH.'views/frontend/finish-results.php';
             // session_destroy();

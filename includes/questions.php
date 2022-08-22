@@ -42,7 +42,7 @@ class Questions{
     }
 
     // Get questions by categories
-    public function get_questions_by_categories($id_categories, $offset, $per_page, $seed): array{
+    public function get_questions_by_categories($id_categories, $offset, $per_page, $seed, $rand_answers): array{
         $moodle = new DBMoodle();
         $questions = $moodle->get_questions_by_categories($id_categories, $offset, $per_page, $seed);
 
@@ -51,9 +51,9 @@ class Questions{
         foreach ($questions as $question) {
             $questions_answers[$i]['id'] = $question['id'];
             $questions_answers[$i]['category'] = $question['category'];
-            $questions_answers[$i]['questiontext'] = $question['questiontext'];
+            $questions_answers[$i]['questiontext'] = dcms_clear_html_text($question['questiontext']);
             // Answers by question
-            $questions_answers[$i]['answers'] = $moodle->get_answers_by_question($question['id'], $seed);
+            $questions_answers[$i]['answers'] = dcms_clear_answers_text($moodle->get_answers_by_question($question['id'], $seed, $rand_answers));
             $i++;
         }
                 

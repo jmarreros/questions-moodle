@@ -1,3 +1,6 @@
+<?php
+/** @var array $categories */
+?>
 <br>
 <form action="" id="frm-categories">
     <table id="table-categories">

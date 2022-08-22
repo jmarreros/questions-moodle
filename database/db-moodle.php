@@ -38,7 +38,7 @@ class DBMoodle{
     {
         $sql = "SELECT id, name, parent 
                 FROM mo_question_categories 
-                WHERE id = {$id_category}";
+                WHERE id = $id_category";
         
         return $this->moodledb->get_row($sql, ARRAY_A);
     }
@@ -57,7 +57,7 @@ class DBMoodle{
                 FROM mo_question q
                 INNER JOIN mo_question_answers a 
                 ON q.id = a.question
-                WHERE q.category = {$id_category}";
+                WHERE q.category = $id_category";
 
         return $this->moodledb->get_results($sql, ARRAY_A);
     }
@@ -68,7 +68,7 @@ class DBMoodle{
         $sql = "SELECT id, category, questiontext 
                 FROM mo_question 
                 WHERE category IN (" . implode(',', $id_categories) . ")
-                ORDER BY RAND({$rand_seed}) LIMIT {$offset},{$per_page}";
+                ORDER BY RAND($rand_seed) LIMIT $offset, $per_page";
 
         return $this->moodledb->get_results($sql, ARRAY_A);
     }
@@ -82,11 +82,12 @@ class DBMoodle{
     }
     
     // Get specific answers by question
-    public function get_answers_by_question($id_question, $rand_seed = 100):array{
+    public function get_answers_by_question($id_question, $rand_seed = 100, $rand_answers = 1):array{
         $sql = "SELECT id, answer, fraction
                 FROM mo_question_answers
-                WHERE question = {$id_question}
-                ORDER BY RAND($rand_seed)";
+                WHERE question = $id_question";
+
+        $sql .= ($rand_answers) ? " ORDER BY RAND($rand_seed)" : '';
 
         return $this->moodledb->get_results($sql, ARRAY_A);   
     }

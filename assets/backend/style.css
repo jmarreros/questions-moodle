@@ -113,8 +113,16 @@
     display:inline-block;
 }
 
-
 .question-container .question-answers li.correct:after{
     content:"✅";
     font-size:15px;
   }
+
+.question-docs{
+    list-style: inherit!important;
+    margin-left: 20px;
+}
+
+.question-docs li{
+    margin-bottom: 16px;
+}

@@ -1,3 +1,7 @@
+<?php
+/** @var string $category */
+/** @var array $questions */
+?>
 <h3>Questions category: <?= $category['name']?></h3>
 
 <?php foreach ($questions as $question): ?>
