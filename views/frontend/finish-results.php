@@ -2,6 +2,7 @@
 /* @var int $page */
 /* @var array $questions_answers */
 ?>
+
 <h2>Resultados Finales</h2>
 
 <section class="question-resume">
@@ -17,12 +18,12 @@
 
 
 <section class="options-link">
-    <a href="<?= get_permalink() ?>">Realizar otra vez el cuestionario</a>
+    <a href="<?= get_permalink() ?>">Realizar otra vez el test</a>
 </section>
 
 <h2>Respuestas</h2>
 
-<section class="questions-container" data-page="<?= $page ?>">
+<section class="questions-container results" data-page="<?= $page ?>">
     <ul class="questions">
     <?php foreach ($questions_answers as $question): ?>
         <li class="question" id="<?= $question['id'] ?>">
@@ -50,3 +51,8 @@
     </ul>
 
 </section>
+
+<section class="options-link">
+    <a href="<?= get_permalink() ?>">Realizar otra vez el test</a>
+</section>
+

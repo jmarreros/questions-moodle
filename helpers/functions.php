@@ -1,18 +1,19 @@
 <?php
 
-function dcms_clear_html_text( $text ):string{
-    $patterns = ['/^[0-9]+(\. )?/', '/(<p><\/p>)+/','/(<br>)+/'];
-    return preg_replace($patterns, '', $text);
+function dcms_clear_html_text( $text ): string {
+	$patterns = [ '/^[0-9]+(\. )?/', '/(<p><\/p>)+/', '/(<br>)+/' ];
+
+	return preg_replace( $patterns, '', $text );
 }
 
-function dcms_clear_answers_text($answers):array{
-    $patterns = ['/^[a-z]+\. /','/(<br>)+/','/(<p>)+/','/(<\/p>)+/'];
+function dcms_clear_answers_text( $answers ): array {
+	$patterns = [ '/^[a-z]+\. /', '/(<br>)+/', '/(<p>)+/', '/(<\/p>)+/' ];
 
-    foreach ($answers as $index => $value){{
-        $answers[$index]['answer'] = preg_replace($patterns, '', $value['answer']);
-    }}
+	foreach ( $answers as $index => $value ) {
+		$answers[ $index ]['answer'] = preg_replace( $patterns, '', $value['answer'] );
+	}
 
-    return $answers;
+	return $answers;
 }
 
 //function dcms_validate_nonce( $nonce, $nonce_name ): void{

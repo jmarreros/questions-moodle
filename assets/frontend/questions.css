@@ -78,3 +78,12 @@
 .options-link{
   text-align: right;
 }
+
+.questions-container.results{
+    border:1px dotted #ccc;
+}
+
+.questions-container.results ul.questions{
+    padding-left: 30px;
+    padding-right: 30px;
+}
