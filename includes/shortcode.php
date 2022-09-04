@@ -3,6 +3,8 @@
 namespace dcms\questions\includes;
 
 // Class for grouping shortcodes functionality
+use Exception;
+
 class Shortcode{
 
     public function __construct(){
@@ -19,8 +21,11 @@ class Shortcode{
         // Get categories attributes
         if ( ! isset($attrs['category']) ) return "No esta establecido el parámetro de category";
 
-        $id_categories = explode(',', $attrs['category']);
-        $per_page = abs(intval($attrs['perpage']??DCMS_QUESTIONS_PAGE));
+	    $id_categories = explode(',', $attrs['category']);
+	    $id_categories = array_filter($id_categories, 'ctype_digit');
+		if (empty($id_categories)) return 'No existen categorías válidas asignadas';
+
+	    $per_page = abs(intval($attrs['perpage']??DCMS_QUESTIONS_PAGE));
         $rand_answers = abs(intval($attrs['rand_answers']??1));
         $total = abs(intval($attrs['limit']??0));
 
@@ -40,30 +45,36 @@ class Shortcode{
         $html_code = '';
         $obj_questions = new Questions;
 
-        $total_questions = $obj_questions->get_total_questions_by_categories($id_categories);
+	    try {
+		    $total_questions = $obj_questions->get_total_questions_by_categories($id_categories);
 
-        // Setting total questions
-        if ( $total === 0 || $total > $total_questions){
-            $total = $total_questions;
-        }
+		    // Setting total questions
+		    if ( $total === 0 || $total > $total_questions){
+			    $total = $total_questions;
+		    }
 
-        if ( ! $finish ) {
-            $questions = $obj_questions->get_questions_by_categories($id_categories, ($page*$per_page), $per_page, $seed, $rand_answers);
-            $show_finish = ($page + 1)*$per_page >= $total;
-    
-            ob_start();
-            include_once DCMS_QUESTIONS_PATH.'views/frontend/questions-category.php';
-        } else {
-            $questions_answers = $obj_questions->get_questions_by_categories($id_categories, 0, $total, $seed, $rand_answers);
+		    if ( ! $finish ) {
+			    $questions = $obj_questions->get_questions_by_categories($id_categories, ($page*$per_page), $per_page, $seed, $rand_answers);
+			    $show_finish = ($page + 1)*$per_page >= $total;
 
-            ob_start();
-            include_once DCMS_QUESTIONS_PATH.'views/frontend/finish-results.php';
-            // session_destroy();
-        }
-        $html_code = ob_get_contents();
-        ob_end_clean();
+			    ob_start();
+			    include_once DCMS_QUESTIONS_PATH.'views/frontend/questions-category.php';
+		    } else {
+			    $questions_answers = $obj_questions->get_questions_by_categories($id_categories, 0, $total, $seed, $rand_answers);
 
-        return $html_code;
+			    ob_start();
+			    include_once DCMS_QUESTIONS_PATH.'views/frontend/finish-results.php';
+			    // session_destroy();
+		    }
+		    $html_code = ob_get_contents();
+		    ob_end_clean();
+
+	    } catch (Exception $e){
+			error_log('Exception shortcode: ',  $e->getMessage());
+			$html_code = "Existe un error en el shortcode, revisa la sintaxis y los ids de categorías";
+	    }
+
+	    return $html_code;
     }
     
 }
