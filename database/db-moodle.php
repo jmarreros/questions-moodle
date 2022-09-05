@@ -5,6 +5,7 @@ namespace dcms\questions\database;
 use dcms\questions\helpers\MoodleConnection;
 use wpdb;
 
+
 // Moodle database queries
 class DBMoodle{
     private wpdb $moodledb;
@@ -65,9 +66,11 @@ class DBMoodle{
 
     // Get questions by categories and several parameters
     public function get_questions_by_categories($id_categories, $offset = 0, $per_page = 10, $rand_seed = 100):array{
-        $sql = "SELECT id, category, questiontext 
+	    $str_cats = dcms_get_str_categories($id_categories);
+
+	    $sql = "SELECT id, category, questiontext 
                 FROM mo_question 
-                WHERE category IN (" . implode(',', $id_categories) . ")
+                WHERE category IN ( $str_cats )
                 ORDER BY RAND($rand_seed) LIMIT $offset, $per_page";
 
         return $this->moodledb->get_results($sql, ARRAY_A);
@@ -75,8 +78,11 @@ class DBMoodle{
 
     // Get total  questions by category
     public function get_total_questions_by_category($id_categories):int{
+
+	    $str_cats = dcms_get_str_categories($id_categories);
+
         $sql = "SELECT count(id) FROM mo_question 
-                WHERE category IN (" . implode(',', $id_categories) . ")";
+                WHERE category IN ( $str_cats )";
 
         return $this->moodledb->get_var($sql);
     }

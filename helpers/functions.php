@@ -16,6 +16,12 @@ function dcms_clear_answers_text( $answers ): array {
 	return $answers;
 }
 
+function dcms_get_str_categories($id_categories){
+	$str_cats = implode(',', $id_categories);
+	if ( ! $str_cats ) return 0;
+	return $str_cats;
+}
+
 //function dcms_validate_nonce( $nonce, $nonce_name ): void{
 //    if ( ! wp_verify_nonce( $nonce, $nonce_name ) ) {
 //        $res = [
