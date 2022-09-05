@@ -18,7 +18,7 @@
 
 
 <section class="options-link">
-    <a href="<?= get_permalink() ?>">Realizar otra vez el test</a>
+    <a href="<?= get_permalink() ?>?reset=1">Realizar otra vez el test</a>
 </section>
 
 <h2>Respuestas</h2>
@@ -53,6 +53,6 @@
 </section>
 
 <section class="options-link">
-    <a href="<?= get_permalink() ?>">Realizar otra vez el test</a>
+    <a href="<?= get_permalink() ?>?reset=1">Realizar otra vez el test</a>
 </section>
 

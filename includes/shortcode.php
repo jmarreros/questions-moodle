@@ -30,7 +30,8 @@ class Shortcode{
         $total = abs(intval($attrs['limit']??0));
 
         // Session control and seed
-        if ( ! isset($_SESSION['custom-seed']) ) {
+	    $reset = $_GET['reset']??0;
+        if ( ! isset($_SESSION['custom-seed']) || $reset == 1 ) {
             $_SESSION['custom-seed'] = rand(1,100);
         }
         

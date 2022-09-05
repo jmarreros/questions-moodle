@@ -1,6 +1,7 @@
 .questions-container .questions,
 .questions-container .answers{
-  list-style: none;  
+    list-style: none;
+    margin:0;
 }
 
 .questions-container .answers{
@@ -42,7 +43,17 @@
 .question-resume{
     border:2px dashed grey;
     padding:12px 20px 25px;
+    margin-bottom: 10px;
 }
+
+.entry-content .questions-container,
+.questions-container.results{
+    border:2px dashed grey;
+    padding: 20px 30px;
+    margin-bottom: 40px;
+}
+
+
 
 .question-resume span,
 .question-resume strong{
@@ -54,10 +65,13 @@
 }
 
 .question-resume strong{
-    width: 20px;
+    width: 50px;
     text-align: right;
 }
 
+.entry-content .question-resume ul{
+    margin-bottom: 0;
+}
 .questions-container .answers.correct{
   background-color:lightgreen;
 }
@@ -76,14 +90,12 @@
 }
 
 .options-link{
-  text-align: right;
-}
-
-.questions-container.results{
-    border:1px dotted #ccc;
+    text-align: right;
+    margin-bottom: 30px;
 }
 
 .questions-container.results ul.questions{
     padding-left: 30px;
     padding-right: 30px;
 }
+
